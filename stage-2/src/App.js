@@ -21,13 +21,13 @@ class App extends Component {
       .get("https://practiceapi.devmountain.com/products/")
       .then(response => {
         this.setState({
-          products: response
+          products: response.data
         });
       });
   }
   addToCart(item) {
     this.setState({
-      cart: item
+      cart: [...this.state.cart, item]
     });
   }
   removeFromCart(index) {
@@ -55,7 +55,10 @@ class App extends Component {
         <NavBar navigate={this.navigate} />
         <div className="main-container">
           {showCart ? (
-            <ShoppingCart cart={cart} removeFromCart={this.removeFromCart} />
+            <ShoppingCart 
+            removeFromCart={this.removeFromCart} 
+            shoppingCart={cart}
+            />
           ) : (
             <StoreFront products={products} addToCart={this.addToCart} />
           )}
